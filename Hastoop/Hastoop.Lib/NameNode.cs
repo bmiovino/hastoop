@@ -139,7 +139,7 @@ namespace Hastoop
 
         public void Scan()
         {
-            var lines = File.ReadAllLines(ConfigurationManager.AppSettings["MerchantLineExtractPath"]);
+            var lines = File.ReadAllLines(ConfigurationManager.AppSettings["LineExtractPath"]);
 
             Regex lineMatch = new Regex(ConfigurationManager.AppSettings["ScanQualifierRegex"]);
             Regex lineextract = new Regex(ConfigurationManager.AppSettings["ScanExtractRegexGroup"]);
@@ -194,9 +194,7 @@ namespace Hastoop
                 Directory.CreateDirectory(extract_dir);
 
             string[] files = File.ReadAllLines(namenode_filepath);
-
-            //Q:\FlatFileImport\FlatFileImportService-FtpArchive_2015-07-10-015014_332846.zip:9646287b-b680-4c4f-af0c-32eb35a5340f\Customers_1_20150709105440.txt
-
+            
             int i = 1;
             int t = files.Length;
 
@@ -235,11 +233,11 @@ namespace Hastoop
             {
                 var data = (from j in ExtractUniqueLines.Keys select $"{j}\t{ExtractUniqueLines[j] + ""}").ToList();
 
-                File.WriteAllLines(ConfigurationManager.AppSettings["MerchantLineExtractPath"], data);
+                File.WriteAllLines(ConfigurationManager.AppSettings["LineExtractPath"], data);
             }
             else
             {
-                File.WriteAllLines(ConfigurationManager.AppSettings["MerchantLineExtractPath"], ExtractLines);
+                File.WriteAllLines(ConfigurationManager.AppSettings["LineExtractPath"], ExtractLines);
             }
 
         }
